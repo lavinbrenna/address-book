@@ -40,4 +40,32 @@ function Contact(firstName, lastName, phoneNumber){
 
 Contact.prototype.fullName = function(){
   return this.firstName + " " + this.lastName;
+}
+
+/*function PlacesIveBeen() {
+  this.destinations = {};
+  this.currentId = 0;
+}
+
+PlacesIveBeen.prototype.addDestination = function(destination) {
+  destination.id = this.assignId();
+  this.destinations[destination.id] = destination;
+}
+
+PlacesIveBeen.prototype.assignId = function(destination){
+  this.currentId += 1;
+  return this.currentId;
 };
+
+
+function Destination(location, landmarks, timeOfYear, notes){
+  this.location = location;
+  this.landmarks = landmarks;
+  this.timeOfYear = timeOfYear;
+  this.notes = notes;
+};
+
+let lasVegas = new Destination("Las Vegas, NV", "Omega-Mart", "Christmas", "This place ruled");
+
+console.log(lasVegas);
+*/
