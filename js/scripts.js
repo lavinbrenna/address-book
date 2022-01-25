@@ -37,25 +37,36 @@ function Contact(firstName, lastName, phoneNumber){
   this.lastName = lastName;
   this.phoneNumber = phoneNumber;
   this.addresses = {};
-  this.addressId = 0
 }
 
-Contact.prototype.fullName = function(){
-  return this.firstName + " " + this.lastName;
-}
-Contact.prototype.assignAddressId = function (address){
-  this.addressId+= 1;
-  return this.addressId;
-}
 Contact.prototype.addAddress = function(address){
-  addressId = this.assignAddressId();
-  this.addresses[address.id] = address;
+  addressType = this.findAddressType(addressType);
+  this.addresses[address.addressType] = address;
+}
+
+Contact.prototype.findAddressType = function(addressType){
+  addressType = this.addressType;
+  if(addressType === "email"){
+    let addressType = "email";
+    return addressType
+  }else if(addressType === "home"){
+    let addressType = "home"
+    return addressType;
+  }else if(addressType === "work"){
+    let addressType = "work"
+    return addressType;
+  }
+}
+//Business Logic for Contact addresses
+
+function Address(address, addressType){
+  this.address = address;
+  this.addressType = addressType;
 }
 
 
-function Address(address){
-this.address = address;
-}
+
+
 
 //User Interface Logic
 let addressBook = new AddressBook();
@@ -70,19 +81,21 @@ function displayContactDetails(addressBookToDisplay){
   contactsList.html(htmlForContactInfo);
 }
 
-function showContact(contactId){
+function showContact(contactId) {
   const contact = addressBook.findContact(contactId);
   $("#show-contact").show();
   $(".first-name").html(contact.firstName);
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
+  $(".address").html(contact.addresses);
   let buttons = $("#buttons");
   buttons.empty();
-  buttons.append("<button class='deleteButton' id ='" + contact.id + "'>Delete</button>");
+  buttons.append("<button class='deleteButton' id=" +  + contact.id + ">Delete</button>");
 }
 
 function attachContactListeners(){
   $("ul#contacts").on("click", "li", function(){
+    console.log("the id of this <li> is "+ this.id);
     showContact(this.id);
   });
   $("#buttons").on("click", ".deleteButton", function(){
@@ -103,6 +116,7 @@ $(document).ready(function(){
     $("input#new-first-name").val("");
     $("input#new-last-name").val("");
     $("input#new-phone-number").val("");
+    $("input#new-address").val("");
     let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber);
     addressBook.addContact(newContact);
     displayContactDetails(addressBook);
