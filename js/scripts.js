@@ -36,10 +36,25 @@ function Contact(firstName, lastName, phoneNumber){
   this.firstName = firstName;
   this.lastName = lastName;
   this.phoneNumber = phoneNumber;
+  this.addresses = {};
+  this.addressId = 0
 }
 
 Contact.prototype.fullName = function(){
   return this.firstName + " " + this.lastName;
+}
+Contact.prototype.assignAddressId = function (address){
+  this.addressId+= 1;
+  return this.addressId;
+}
+Contact.prototype.addAddress = function(address){
+  addressId = this.assignAddressId();
+  this.addresses[address.id] = address;
+}
+
+
+function Address(address){
+this.address = address;
 }
 
 //User Interface Logic
@@ -84,6 +99,10 @@ $(document).ready(function(){
     const inputtedFirstName = $("input#new-first-name").val();
     const inputtedLastName = $("input#new-last-name").val();
     const inputtedPhoneNumber = $("input#new-phone-number").val();
+
+    $("input#new-first-name").val("");
+    $("input#new-last-name").val("");
+    $("input#new-phone-number").val("");
     let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber);
     addressBook.addContact(newContact);
     displayContactDetails(addressBook);
